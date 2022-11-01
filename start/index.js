@@ -1,10 +1,12 @@
 import { square, cube } from "./math.js";
-import fs from 'fs';
+import fs from 'fs/promises';
+import { constants } from "fs";
 import { open, read, close } from 'fs';
 import { CLIENT_RENEG_WINDOW } from "tls";
 // import _ from 'underscore';
 // import _ from 'lodash';
 // import { isGeneratorFunction } from "util/types";
+import __dirname from './__dirname.js';
 
 
 // импорт и использование другого файла  --------------------------------
@@ -144,16 +146,52 @@ import { CLIENT_RENEG_WINDOW } from "tls";
 // }
 // func();
 
-async function func() {
-	try {
-		let data1 = await fs.promises.readFile('first.txt', 'utf8');
-		let data2 = await fs.promises.readFile('second.txt', 'utf8');
-		let data3 = await fs.promises.readFile('third.txt', 'utf8');
+// async function func() {
+// 	try {
+// 		let data1 = await fs.promises.readFile('first.txt', 'utf8');
+// 		let data2 = await fs.promises.readFile('second.txt', 'utf8');
+// 		let data3 = await fs.promises.readFile('third.txt', 'utf8');
 		
-		console.log(data1 + data2 + data3);
-	} catch (err) {
-		console.log('что-то пошло не так');
-	}
-}
+// 		console.log(data1 + data2 + data3);
+// 	} catch (err) {
+// 		console.log('что-то пошло не так');
+// 	}
+// }
 
-func();
+// func();
+
+
+// add in inmport 'fs/promises';  -------------------------------------
+// fs.readFile('readme.txt','utf-8').then(data=>{
+//   console.log(data);
+// });
+
+
+//  get way to file in local -------------------------------------------
+console.log(__dirname);
+
+// check file 
+// fs.access('test.txt', constants.F_OK).then(()=>{
+//     console.log('file exists');
+// }).catch(()=>{
+//   console.error('file does not exists');
+// });
+
+// or await 
+
+// try {
+//  await fs.access('first.txt',constants.F_OK);
+// console.log('file exists');  
+// } catch {
+//   console.error('file does not exests');
+// }
+
+// constants.R_OK  флаг используется для проверки разрешения на чтение файла --------------
+// constants.W_OK   флаг используется для проверки разрешения на запись файла --------------
+
+try {
+	await fs.access('test.txt', constants.R_OK);
+	console.log('can read');
+} catch {
+	console.error('cannot read');
+}
