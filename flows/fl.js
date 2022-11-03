@@ -80,7 +80,7 @@ let writeableStream = fs.createWriteStream('readme.txt');
 // 	response.end();
 // }).listen(3000);
 
-
+// роутинг
 http.createServer((request, response) => {
 	if (request.url != '/favicon.ico') {
 		let text;
